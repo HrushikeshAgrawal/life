@@ -10,4 +10,4 @@ The website is a simple trial of the game.
 
 ![Image not supported...](output/2.png)
 
-![Video not supported...](output/v1.mp4)
+![Video not supported...](output/v1.mp4?raw=true)
