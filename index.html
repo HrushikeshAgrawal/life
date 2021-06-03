@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Life</title>
+    <script src="./script.js" defer></script>
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <div class="world"></div>
+      <div class="options">
+        <h1 class="heroText">The Game Of Life :D</h1>
+
+        <h1 id="genCount">Gen Count: 0</h1>
+        <div>
+          <button onclick="toggleAutoPlay()" id="startBtn">Start</button>
+          <button onclick="nextGen()">Next Gen</button>
+          <button onclick="initWorld()">Reset</button>
+          <button onclick="openRules()" class="rulesBtn">See Rules</button>
+        </div>
+
+        <div class="samplesDiv">
+          <h1>Select Sample Input</h1>
+          <div class="samples">
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(oscillatorArr)"
+                id="oscillator"
+              ></div>
+              <h2>Oscillator</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(stableArr)"
+                id="stable"
+              ></div>
+              <h2>Stable Life</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(gliderArr)"
+                id="glider"
+              ></div>
+              <h2>Glider</h2>
+              <h2>(Traveller)</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(spaceShipArr)"
+                id="spaceShip"
+              ></div>
+              <h2>Space Ship</h2>
+              <h2>(Traveller)</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(fightersArr)"
+                id="fighters"
+              ></div>
+              <h2>Fighters</h2>
+              <h2>(Low Multiplier)</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(pentominoArr)"
+                id="pentomino"
+              ></div>
+              <h2>Pentomino</h2>
+              <h2>(High Multiplier)</h2>
+            </div>
+            <div class="sampleContainer">
+              <div
+                class="sample"
+                onclick="clickToAddSample(acornArr)"
+                id="acorn"
+              ></div>
+              <h2>Acorn</h2>
+              <h2>(High Multiplier)</h2>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="rulesModal">
+      <div class="rulesContainer">
+        <div class="closeRules" onclick="closeRules()">X</div>
+        <h1>Rules of Life :D</h1>
+        <div class="rules">
+          <div class="rule">
+            <h3>1. Solitude</h3>
+            <p>An alive cell with one or no neighbors dies</p>
+            <div class="example">
+              <div class="sample">
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell alive"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+              <div class="arrow">&rarr;</div>
+              <div class="sample">
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell darkDead"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rule">
+            <h3>2. Overpopulation</h3>
+            <p>An alive cell with four or more neighbors dies</p>
+            <div class="example">
+              <div class="sample">
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                  <div class="cell faintAlive"></div>
+                </div>
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell alive"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell faintAlive"></div>
+                  <div class="cell faintAlive"></div>
+                </div>
+              </div>
+              <div class="arrow">&rarr;</div>
+              <div class="sample">
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell darkDead"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell faintAlive"></div>
+                  <div class="cell faintAlive"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rule">
+            <h3>3. Stable Survival</h3>
+            <p>An alive cell with two or three neighbors survives</p>
+            <div class="example">
+              <div class="sample">
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell alive"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+              <div class="arrow">&rarr;</div>
+              <div class="sample">
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell alive"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="rule">
+            <h3>4. Birth (Re-Birth)</h3>
+            <p>A dead cell with three neighbors becomes alive</p>
+            <div class="example">
+              <div class="sample">
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell faintAlive"></div>
+                  <div class="cell darkDead"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell faintAlive"></div>
+                </div>
+              </div>
+              <div class="arrow">&rarr;</div>
+              <div class="sample">
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell alive"></div>
+                  <div class="cell"></div>
+                </div>
+                <div class="row">
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                  <div class="cell"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <p class="note">*Focus on central cell while understanding the rules</p>
+        <p class="desc">
+          John Conway's Game of Life (an example of a cellular automaton) is
+          played on an infinite two-dimensional rectangular grid of cells. Each
+          cell can be either alive or dead. The status of each cell changes each
+          turn of the game (also called a generation) depending on the statuses
+          of that cell's 8 neighbors. Neighbors of a cell are cells that touch
+          that cell, either horizontal, vertical, or diagonal from that cell.
+        </p>
+        <div class="exp">
+          <div class="expRow">
+            <div class="cell alive"></div>
+            <div class="arrow">&rarr;</div>
+            Alive Cell
+          </div>
+          <div class="expRow">
+            <div class="cell"></div>
+            <div class="arrow">&rarr;</div>
+            Dead Cell
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- https://playgameoflife.com/
+        http://pi.math.cornell.edu/~lipa/mec/lesson6.html
+    -->
+  </body>
+</html>
