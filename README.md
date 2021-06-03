@@ -10,4 +10,7 @@ The website is a simple trial of the game.
 
 ![Image not supported...](output/2.png)
 
-![Video not supported...](output/v1.mp4?raw=true)
+
+https://user-images.githubusercontent.com/53529178/120628761-b10ace00-c482-11eb-8bf5-6b6bc6c565ee.mp4
+
+![](output/v1.mp4)
