@@ -7,3 +7,5 @@ The website is a simple trial of the game.
 
 ## Screenshots - 
 ![Image not supported...](output/1.png)
+
+![Image not supported...](output/2.png)
