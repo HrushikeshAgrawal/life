@@ -9,3 +9,5 @@ The website is a simple trial of the game.
 ![Image not supported...](output/1.png)
 
 ![Image not supported...](output/2.png)
+
+![Video not supported...](output/v1.mp4)
